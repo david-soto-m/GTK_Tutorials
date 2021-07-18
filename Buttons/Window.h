@@ -4,6 +4,33 @@
 #include <gtkmm.h>
 #include <string>
 
+
+class AbsExpr{
+public:
+    AbsExpr(std::string str = "hola");
+    std::string expr_str, true_str = "True",  false_str = "False";
+
+    virtual std::string expr_fun(bool a, bool b, bool c) = 0;
+
+protected:
+    ~AbsExpr(){};
+};
+
+class Expr1 : public AbsExpr{
+public:
+    Expr1(std::string str = "a*b+c");
+    std::string expr_fun(bool a, bool b, bool c);
+    virtual ~ Expr1(){};
+};
+
+class Expr2 : public AbsExpr{
+public:
+    Expr2(std::string str  = "a*(b+c)");
+    std::string expr_fun(bool a, bool b, bool c);
+    virtual ~ Expr2(){};
+};
+
+
 class Window : public Gtk::Window{
 public:
     Window();
@@ -11,11 +38,8 @@ public:
 protected:
     bool status;
 
-    bool expr1();
-    bool expr2();
-
-    std::string expr1_str = "a*b+c";
-    std::string expr2_str = "a*(b+c)";
+    Expr1 expr1;
+    Expr2 expr2;
 
     void handle_but_clicked();
 
@@ -35,5 +59,4 @@ protected:
     Gtk::RadioButton rb_one;
     Gtk::RadioButton rb_two;
 };
-
 #endif  // WINDOW_H_

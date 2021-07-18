@@ -6,7 +6,7 @@
 Window::Window():
 res_shower("Results will go here"),
 but("evaluate"),
-tog(expr1_str),
+tog(expr1.expr_str),
 a("a"),
 b("b"),
 radio_box(Gtk::ORIENTATION_VERTICAL),
@@ -45,18 +45,35 @@ Window::~Window() {
 
 void Window::handle_but_clicked(){
     res_shower.set_label(
-        (tog.get_active() ? expr2() : expr1()) ? "True" : "False");
+        tog.get_active() ?
+            expr2.expr_fun(a.get_active(),b.get_active(),rb_one.get_active()):
+            expr1.expr_fun(a.get_active(),b.get_active(),rb_one.get_active()));
 }
 
 void Window::handle_tog_clicked(){
-    tog.set_label(tog.get_active() ? expr2_str : expr1_str);
+    tog.set_label(tog.get_active() ?
+        expr2.expr_str:
+        expr1.expr_str);
 
 }
 
-bool Window::expr1() {
-    return (a.get_active()&&b.get_active())||rb_one.get_active();
+AbsExpr::AbsExpr(std::string str){
+    expr_str = str;
 }
 
-bool Window::expr2() {
-    return a.get_active()&&(b.get_active()||rb_one.get_active());
+Expr1::Expr1(std::string str){
+    expr_str = str;
+}
+
+Expr2::Expr2(std::string str){
+    expr_str = str;
+}
+
+
+std::string Expr1::expr_fun(bool a, bool b, bool c){
+    return ((a && b) || c) ? true_str : false_str;
+}
+
+std::string Expr2::expr_fun(bool a, bool b, bool c){
+    return (a && (b || c)) ? true_str : false_str;
 }
