@@ -8,8 +8,15 @@ public:
     Window();
     virtual ~Window();
 protected:
-    Gtk::Label m_Label1;
-    Gtk::Box m_VBox;
+    void handle_entry_mod();
+    void handle_entry_act();
+    void handle_spin_mod();
+    void handle_spin_act();
+
+    Gtk::Label m_label1, m_label2, m_label_name;
+    Gtk::Entry m_name_entry;
+    Gtk::SpinButton m_spinny;
+    Gtk::Box m_vbox, m_hbox;
 };
 
 #endif // WIDGETS_H_
