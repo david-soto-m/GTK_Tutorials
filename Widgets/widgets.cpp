@@ -1,7 +1,7 @@
 #include <widgets.h>
 #include <string>
 
-Window::Window():
+Window::Window() :
 m_vbox(Gtk::ORIENTATION_VERTICAL),
 m_hbox(Gtk::ORIENTATION_HORIZONTAL)
 {
